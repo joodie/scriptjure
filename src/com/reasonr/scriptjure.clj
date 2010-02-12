@@ -61,7 +61,10 @@
   (str \" expr \"))
 
 (defmethod emit clojure.lang.Symbol [expr]
-  (str expr))
+  (let [[object & props] (str/split (str expr) #"\.")] 
+    (apply str object (map #(if (re-matches #"^[a-zA-Z$][a-zA-Z0-9_$]+$" %) 
+                        (str \. %)
+                        (str "[\"" % "\"]")) props))))
 
 (defmethod emit :default [expr]
   (str expr))
