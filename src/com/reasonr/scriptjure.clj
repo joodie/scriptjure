@@ -69,9 +69,9 @@
 (defmethod emit :default [expr]
   (str expr))
 
-(def special-forms (set ['var '. 'if 'funcall 'fn 'set! 'return 'delete 'new 'do]))
+(def special-forms (set '[var . if funcall fn set! return delete new do let]))
 
-(def infix-operators (set ['+ '- '/ '* '% '== '=== '< '> '<= '>= '!= '<< '>> '<<< '>>> '!== '& '^ '| '&& '||]))
+(def infix-operators (set '[+ - / * % == === < > <= >= != << >> <<< >>> !== & ^ | && ||]))
 
 (defn special-form? [expr]
   (contains? special-forms expr))
