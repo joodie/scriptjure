@@ -50,6 +50,14 @@
 (deftest test-fn
   (is (= (strip-whitespace (js (fn foo [x] (foo a) (bar b)))) "function foo(x) { foo(a); bar(b); }")))
 
+(deftest test-let
+  (is (= (strip-whitespace 
+          (js
+           (let [a 1
+                 b (+ 8 (f 32))]
+             (+ a b))))
+         "(function (a, b) { (a + b); } )(1, (8 + f(32)))")))
+
 (deftest test-array
   (is (= (js [1 "2" :foo]) "[1, \"2\", foo]")))
 

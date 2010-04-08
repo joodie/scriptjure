@@ -121,6 +121,10 @@
 (defmethod emit-special 'new [type [new class & args]]
   (str "new " (emit class) (comma-list (map emit args))))
 
+(defmethod emit-special 'let [type [let bindings & body]]
+  (str "(" (emit-function nil (apply vector (map emit (take-nth 2 bindings))) body) ")"
+       (comma-list (map emit (take-nth 2 (rest bindings))))))
+
 (defn emit-do [exprs]
   (str/join "" (map (comp statement emit) exprs)))
 
